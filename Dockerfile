@@ -14,10 +14,7 @@ RUN mkdir /artifacts; \
     make -j$(nproc) && cd ../.. && strip ./mfaktc-0.23.0/mfaktc && \
     tar Jcvf ./mfaktc-0.23.0.tar.xz --exclude ./mfaktc-0.23.0/src ./mfaktc-0.23.0 && \
     mv mfaktc-0.23.0.tar.xz /artifacts; \
-
-WORKDIR /build
-
-RUN git clone https://github.com/preda/gpuowl -b gpuowl && \
+    cd /build && git clone https://github.com/preda/gpuowl -b gpuowl && \
     cd gpuowl && git checkout gpuowl && make -j$(nproc) && strip build-release/gpuowl && \
     mkdir gpuowl-master && cp ./build-release/gpuowl ./gpuowl-master && cp LICENSE ./gpuowl-master && cp README.* ./gpuowl-master && \
     tar Jcvf ./gpuowl-master.tar.xz gpuowl-master && mv ./gpuowl-master.tar.xz /artifacts && ls -la /artifacts/
