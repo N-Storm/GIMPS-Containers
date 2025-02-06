@@ -1,4 +1,4 @@
-FROM nvidia/cuda:12.8.0-runtime-ubuntu24.04 as build
+FROM nvidia/cuda:12.8.0-devel-ubuntu24.04 as build
 
 RUN apt update && apt install -y --no-install-recommends \
     wget curl mc sudo htop build-essential nvidia-opencl-dev git \
