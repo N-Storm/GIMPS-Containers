@@ -1,4 +1,4 @@
-FROM nvidia/cuda:12.8.0-devel-ubuntu24.04 as build
+FROM nvidia/cuda:12.2.2-devel-ubuntu22.04 as build
 
 WORKDIR /build
 
@@ -19,8 +19,7 @@ RUN mkdir /artifacts; \
     mkdir gpuowl-master && cp ./build-release/gpuowl ./gpuowl-master && cp LICENSE ./gpuowl-master && cp README.* ./gpuowl-master && \
     tar Jcvf ./gpuowl-master.tar.xz gpuowl-master && mv ./gpuowl-master.tar.xz /artifacts && ls -la /artifacts/
 
-# FROM nvidia/cuda:12.8.0-runtime-ubuntu24.04 as base
-FROM nvidia/cuda:12.8.0-base-ubuntu24.04 as base
+FROM nvidia/cuda:12.2.2-base-ubuntu22.04 as base
 
 FROM base as base-amd64
 
