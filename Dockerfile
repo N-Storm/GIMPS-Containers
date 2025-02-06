@@ -1,7 +1,7 @@
 FROM nvidia/cuda:12.8.0-devel-ubuntu24.04 as build
 
 RUN apt update && apt install -y --no-install-recommends \
-    wget curl mc sudo htop build-essential nvidia-opencl-dev git \
+    wget curl mc sudo htop build-essential nvidia-opencl-dev git python3 \
     ocl-icd-dev libgmp10 libgmp-dev make cmake clinfo patch diffutils unzip
 
 RUN cd $HOME && [[ -f mfaktc-0.23.0.zip ]] && rm -f mfaktc-0.23.0.zip; \
