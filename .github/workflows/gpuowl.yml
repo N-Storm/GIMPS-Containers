@@ -1,4 +1,4 @@
-name: Build mfaktc software
+name: Build gpuowl
 
 on:
   push:
