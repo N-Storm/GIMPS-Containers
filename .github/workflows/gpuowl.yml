@@ -1,0 +1,44 @@
+name: Build mfaktc software
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+# Begin job "build-linux"
+  build-linux:
+    runs-on: ubuntu-latest
+    container: nvcr.io/nvidia/cuda:12.8.0-devel-ubuntu24.04
+
+    strategy:
+      # Set fail-fast to false to ensure that feedback is delivered for all matrix combinations. Consider changing this to true when your workflow is stable.
+      fail-fast: true
+
+    steps:
+
+      - name: Install & update software
+        run: |
+          apt update && apt install -y --no-install-recommends wget curl mc sudo htop build-essential nvidia-opencl-dev git python3 ocl-icd-dev libgmp10 libgmp-dev make cmake clinfo patch diffutils unzip
+
+      - name: Build gpuowl
+        run: |
+          mkdir /artifacts
+          git clone https://github.com/preda/gpuowl -b gpuowl
+          cd gpuowl
+          git checkout gpuowl
+          make -j$(nproc)
+          strip build-release/gpuowl
+          mkdir gpuowl-master
+          cp ./build-release/gpuowl ./gpuowl-master
+          cp LICENSE ./gpuowl-master
+          cp README.* ./gpuowl-master
+          tar zcvf ./gpuowl-master.tar.gz gpuowl-master
+          mv ./gpuowl-master.tar.gz /artifacts
+          ls -la /artifacts/
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: gpuowl-master
+          path: /artifacts/gpuowl-master.tar.gz
