@@ -11,7 +11,7 @@ RUN mkdir /artifacts; \
     mkdir mfaktc-0.23.2-optimized-linux64-cuda12.8.0 && cd mfaktc-0.23.2-optimized-linux64-cuda12.8.0 && \
     unzip -o ../mfaktc-0.23.2-optimized-linux64-cuda12.8.0.zip && strip mfaktc && \
     tar Jcvf ../mfaktc-0.23.2-optimized-linux64-cuda12.8.0.tar.xz ./ && cd .. && \
-    mv mfaktc-0.23.2pre4.tar.xz /artifacts; \
+    mv mfaktc-0.23.2-optimized-linux64-cuda12.8.0.tar.xz /artifacts; \
     cd /build && git clone https://github.com/preda/gpuowl -b gpuowl && \
     cd gpuowl && git checkout gpuowl && make -j$(nproc) && strip build-release/gpuowl && \
     mkdir gpuowl-master && cp ./build-release/gpuowl ./gpuowl-master && cp LICENSE ./gpuowl-master && cp README.* ./gpuowl-master && \
